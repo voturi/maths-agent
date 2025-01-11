@@ -1,0 +1,42 @@
+{
+    "CallerReference": "maths-agent-project-distribution",
+    "Comment": "Distribution for maths-agent-project",
+    "DefaultRootObject": "index.html",
+    "Origins": {
+      "Quantity": 1,
+      "Items": [
+        {
+          "Id": "S3-maths-agent-project",
+          "DomainName": "maths-agent-project.s3-website-ap-southeast-2.amazonaws.com",
+          "CustomOriginConfig": {
+            "HTTPPort": 80,
+            "HTTPSPort": 443,
+            "OriginProtocolPolicy": "http-only"
+          }
+        }
+      ]
+    },
+    "DefaultCacheBehavior": {
+      "TargetOriginId": "S3-maths-agent-project",
+      "ViewerProtocolPolicy": "redirect-to-https",
+      "MinTTL": 0,
+      "AllowedMethods": {
+        "Quantity": 2,
+        "Items": ["HEAD", "GET"],
+        "CachedMethods": {
+          "Quantity": 2,
+          "Items": ["HEAD", "GET"]
+        }
+      },
+      "ForwardedValues": {
+        "QueryString": false,
+        "Cookies": {
+          "Forward": "none"
+        }
+      }
+    },
+    "ViewerCertificate": {
+      "CloudFrontDefaultCertificate": true
+    },
+    "Enabled": true
+  }
