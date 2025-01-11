@@ -1,0 +1,23 @@
+{
+    "webhook": {
+      "name": "maths-agent-project-webhook",
+      "targetPipeline": "maths-agent-project-pipeline",
+      "targetAction": "Source",
+      "filters": [
+        {
+          "jsonPath": "$.ref",
+          "matchEquals": "refs/heads/{Branch}"
+        }
+      ],
+      "authentication": "GITHUB_HMAC",
+      "authenticationConfiguration": {
+        "SecretToken": "{{resolve:secretsmanager:maths-agent-project-webhook-secret:SecretString:SecretToken}}"
+      }
+    },
+    "tags": [
+      {
+        "key": "Project",
+        "value": "MathsAgent"
+      }
+    ]
+  }

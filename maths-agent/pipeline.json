@@ -1,0 +1,64 @@
+{
+    "pipeline": {
+      "name": "maths-agent-project-pipeline",
+      "roleArn": "arn:aws:iam::738322522222:role/CodePipelineServiceRole",
+      "artifactStore": {
+        "type": "S3",
+        "location": "codepipeline-ap-southeast-2-burleigh2070"
+      },
+      "stages": [
+        {
+          "name": "Source",
+          "actions": [
+            {
+              "name": "Source",
+              "actionTypeId": {
+                "category": "Source",
+                "owner": "AWS",
+                "provider": "CodeCommit",
+                "version": "1"
+              },
+              "configuration": {
+                "RepositoryName": "maths-agent",
+                "BranchName": "main"
+              },
+              "outputArtifacts": [
+                {
+                  "name": "SourceArtifact"
+                }
+              ],
+              "runOrder": 1
+            }
+          ]
+        },
+        {
+          "name": "Build",
+          "actions": [
+            {
+              "name": "Build",
+              "actionTypeId": {
+                "category": "Build",
+                "owner": "AWS",
+                "provider": "CodeBuild",
+                "version": "1"
+              },
+              "configuration": {
+                "ProjectName": "maths-agent-project-build"
+              },
+              "inputArtifacts": [
+                {
+                  "name": "SourceArtifact"
+                }
+              ],
+              "outputArtifacts": [
+                {
+                  "name": "BuildArtifact"
+                }
+              ],
+              "runOrder": 1
+            }
+          ]
+        }
+      ]
+    }
+  }

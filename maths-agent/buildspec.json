@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  pre_build:
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - aws s3 sync build/ s3://maths-agent-project --delete
+      - aws cloudfront create-invalidation --distribution-id E1AH2N4XFV4HX --paths "/*"
+
+artifacts:
+  base-directory: build
+  files:
+    - '**/*'
